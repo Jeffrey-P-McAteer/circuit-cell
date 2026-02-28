@@ -107,7 +107,7 @@ jobs:
       - name: Package macOS
         if: runner.os == 'macOS'
         run: |
-          ditto -c -k --sequesterRsrc --keepParent build circuit-cell.app circuit-cell-mac.zip
+          ditto -c -k --sequesterRsrc --keepParent build/circuit-cell.app circuit-cell-mac.zip
 
       ########################################
       # Upload Build Artifacts (temporary)
