@@ -1,0 +1,79 @@
+stages:
+  - build
+  - package
+  - release
+
+variables:
+  VERSION_MAJOR: "0"
+  VERSION_MINOR: "1"
+
+############################################
+# Linux Build
+############################################
+linux-build:
+  stage: build
+  tags: [linux]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release"'
+  script:
+    - export VERSION_PATCH=$CI_PIPELINE_IID
+    - cmake -S . -B build -G Ninja
+        -DCMAKE_BUILD_TYPE=Release
+        -DPROJECT_VERSION_MAJOR=$VERSION_MAJOR
+        -DPROJECT_VERSION_MINOR=$VERSION_MINOR
+        -DPROJECT_VERSION_PATCH=$VERSION_PATCH
+    - cmake --build build
+    - linuxdeployqt build/bin/circuit-cell -appimage
+  artifacts:
+    paths:
+      - build/*.AppImage
+
+############################################
+# Windows Build
+############################################
+windows-build:
+  stage: build
+  tags: [windows]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release"'
+  script:
+    - set VERSION_PATCH=%CI_PIPELINE_IID%
+    - cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+    - cmake --build build --config Release
+    - windeployqt build\bin\circuit-cell.exe --release
+    - powershell Compress-Archive build\bin\* circuit-cell-win64.zip
+  artifacts:
+    paths:
+      - circuit-cell-win64.zip
+
+############################################
+# macOS Build
+############################################
+macos-build:
+  stage: build
+  tags: [macos]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release"'
+  script:
+    - export VERSION_PATCH=$CI_PIPELINE_IID
+    - cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+    - cmake --build build
+    - macdeployqt build/circuit-cell.app
+    - ditto -c -k --sequesterRsrc --keepParent build/circuit-cell.app circuit-cell-mac.zip
+  artifacts:
+    paths:
+      - circuit-cell-mac.zip
+
+############################################
+# Tag + GitLab Release
+############################################
+create-release:
+  stage: release
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release"'
+  script:
+    - export VERSION="$VERSION_MAJOR.$VERSION_MINOR.$CI_PIPELINE_IID"
+    - git tag v$VERSION
+    - git push https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git v$VERSION
+
+
