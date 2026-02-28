@@ -3,6 +3,8 @@ set -euo pipefail
 
 ./set-versions.sh
 
+git status
+
 # -----------------------------
 # Check if repo is clean
 # -----------------------------
