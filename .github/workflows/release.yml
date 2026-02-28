@@ -6,8 +6,6 @@ concurrency:
 
 on:
   push:
-    branches:
-      - release
     tags:
       - 'v*.*.*'   # matches semantic version tags like v2025.03.1234
 
