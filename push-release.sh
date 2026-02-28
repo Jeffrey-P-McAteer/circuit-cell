@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+./set-versions.sh
+
 # -----------------------------
 # Check if repo is clean
 # -----------------------------
@@ -45,6 +47,17 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+source build/version_data.sh
+
+TAG_NAME="v$VERSION_STR"
+# Forcefully create/update tag at current HEAD
+git tag -f -a "$TAG_NAME" -m "Release version $VERSION_STR"
+echo "Git tag $TAG_NAME created/updated at current commit."
+
+# Optional: push tag to origin
+git push -f origin "$TAG_NAME"
+
 git push origin release
 
+# Go back to where we began
 git checkout master

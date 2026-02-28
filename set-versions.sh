@@ -20,6 +20,7 @@ RELEASE_YML=".github/workflows/release.yml"
 if [[ -f "$RELEASE_YML" ]]; then
     sed -i -E "s/(VERSION_MAJOR:).*/\1 $VERSION_MAJOR/" "$RELEASE_YML"
     sed -i -E "s/(VERSION_MINOR:).*/\1 $VERSION_MINOR/" "$RELEASE_YML"
+    sed -i -E "s/(VERSION_PATCH:).*/\1 $VERSION_PATCH/" "$RELEASE_YML"
     echo "Updated $RELEASE_YML"
 fi
 
@@ -39,6 +40,15 @@ fi
 #     sed -i -E "s/(#define PROJECT_VERSION \").*(\")/\1$VERSION_STR\2/" "$VERSION_H_IN"
 #     echo "Updated $VERSION_H_IN"
 # fi
+
+mkdir -p build
+echo > build/version_data.sh
+echo "export VERSION_MAJOR=$VERSION_MAJOR" >> build/version_data.sh
+echo "export VERSION_MINOR=$VERSION_MINOR" >> build/version_data.sh
+echo "export VERSION_PATCH=$VERSION_PATCH" >> build/version_data.sh
+echo "export VERSION_STR=$VERSION_STR" >> build/version_data.sh
+
+echo "Updated build/version_data.sh"
 
 echo "Version synchronization complete: $VERSION_STR"
 
