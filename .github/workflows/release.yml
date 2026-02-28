@@ -131,19 +131,19 @@ jobs:
       - name: Download Linux Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ubuntu-latest-artifact
+          name: Linux-artifact
           path: release
 
       - name: Download Windows Artifact
         uses: actions/download-artifact@v4
         with:
-          name: windows-latest-artifact
+          name: Windows-artifact
           path: release
 
       - name: Download macOS Artifact
         uses: actions/download-artifact@v4
         with:
-          name: macos-latest-artifact
+          name: macOS-artifact
           path: release
 
       - name: Create GitHub Release
