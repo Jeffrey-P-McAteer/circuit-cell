@@ -33,8 +33,17 @@ else
     git pull origin release || true
 fi
 
-echo "Merging master into release..."
-git merge --no-ff master -m "Merge master into release"
+# -----------------------------
+# Rebase release onto master
+# -----------------------------
+echo "Rebasing release onto master..."
+git rebase master
+
+# Optional: automatically abort if conflicts
+if [ $? -ne 0 ]; then
+    echo "Rebase failed due to conflicts. Resolve manually."
+    exit 1
+fi
 
 git push origin release
 
