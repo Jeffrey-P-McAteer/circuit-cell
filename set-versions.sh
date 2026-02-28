@@ -30,7 +30,7 @@ if [[ -f "$CMAKELISTS" ]]; then
     # sed -i -E "s/(set\(PROJECT_VERSION_MAJOR ).*/\1$VERSION_MAJOR)/" "$CMAKELISTS"
     # sed -i -E "s/(set\(PROJECT_VERSION_MINOR ).*/\1$VERSION_MINOR)/" "$CMAKELISTS"
     # sed -i -E "s/(set\(PROJECT_VERSION_PATCH ).*/\1$VERSION_PATCH)/" "$CMAKELISTS"
-    sed -i -E "s/project\(circuit-cell VERSION .* LANGUAGES CXX\)/project\(circuit-cell VERSION $VERSION_STR LANGUAGES CXX\))/" "$CMAKELISTS"
+    sed -i -E "s/project\(circuit-cell VERSION .* LANGUAGES CXX\)/project\(circuit-cell VERSION $VERSION_STR LANGUAGES CXX\)/" "$CMAKELISTS"
     echo "Updated $CMAKELISTS"
 fi
 
