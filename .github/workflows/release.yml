@@ -70,7 +70,7 @@ jobs:
       - name: Configure Windows
         if: runner.os == 'Windows'
         run: |
-          cmake -S . -B build -G Ninja `
+          cmake -S . -B build -G "Visual Studio 17 2022" -A x64 `
             -DCMAKE_BUILD_TYPE=Release `
             -DPROJECT_VERSION_MAJOR=${{ env.VERSION_MAJOR }} `
             -DPROJECT_VERSION_MINOR=${{ env.VERSION_MINOR }} `
@@ -97,6 +97,7 @@ jobs:
       - name: Package Linux
         if: runner.os == 'Linux'
         run: |
+          ls -l build \
           tar -czf circuit-cell-linux.tar.gz -C build .
 
       - name: Package Windows
@@ -107,6 +108,9 @@ jobs:
       - name: Package macOS
         if: runner.os == 'macOS'
         run: |
+          ls -l build \
+          macdeployqt build/circuit-cell.app \
+          ls -l build \
           ditto -c -k --sequesterRsrc --keepParent build/circuit-cell.app circuit-cell-mac.zip
 
       ########################################
