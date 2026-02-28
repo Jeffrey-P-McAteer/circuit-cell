@@ -1,5 +1,9 @@
 name: Cross Platform Release
 
+concurrency:
+  group: release-build
+  cancel-in-progress: true
+
 on:
   push:
     branches:
