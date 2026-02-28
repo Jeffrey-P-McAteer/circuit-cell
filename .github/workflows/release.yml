@@ -97,7 +97,7 @@ jobs:
       - name: Package Linux
         if: runner.os == 'Linux'
         run: |
-          ls -l build \
+          ls -l build ; \
           tar -czf circuit-cell-linux.tar.gz -C build .
 
       - name: Package Windows
@@ -108,9 +108,9 @@ jobs:
       - name: Package macOS
         if: runner.os == 'macOS'
         run: |
-          ls -l build \
-          macdeployqt build/circuit-cell.app \
-          ls -l build \
+          ls -l build ; \
+          macdeployqt build/circuit-cell.app ; \
+          ls -l build ; \
           ditto -c -k --sequesterRsrc --keepParent build/circuit-cell.app circuit-cell-mac.zip
 
       ########################################
