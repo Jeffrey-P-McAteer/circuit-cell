@@ -58,7 +58,26 @@ jobs:
       ########################################
       # Configure
       ########################################
-      - name: Configure
+      - name: Configure Linux
+        if: runner.os == 'Linux'
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DPROJECT_VERSION_MAJOR=${{ env.VERSION_MAJOR }} \
+            -DPROJECT_VERSION_MINOR=${{ env.VERSION_MINOR }} \
+            -DPROJECT_VERSION_PATCH=${{ github.run_number }}
+
+      - name: Configure Windows
+        if: runner.os == 'Windows'
+        run: |
+          cmake -S . -B build -G Ninja `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DPROJECT_VERSION_MAJOR=${{ env.VERSION_MAJOR }} `
+            -DPROJECT_VERSION_MINOR=${{ env.VERSION_MINOR }} `
+            -DPROJECT_VERSION_PATCH=${{ github.run_number }}
+
+      - name: Configure macOS
+        if: runner.os == 'macOS'
         run: |
           cmake -S . -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
