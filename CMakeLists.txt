@@ -33,6 +33,10 @@ qt_add_executable(circuit-cell
     src/MainWindow.cpp
 )
 
+# Enable the .app build on MacOS targets.
+set_target_properties(circuit-cell PROPERTIES MACOSX_BUNDLE TRUE)
+
+
 target_link_libraries(circuit-cell PRIVATE
     Qt6::Core
     Qt6::Gui
