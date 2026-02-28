@@ -1,0 +1,60 @@
+name: Cross Platform Release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      VERSION_MAJOR: 0
+      VERSION_MINOR: 1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Ninja
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then sudo apt install ninja-build -y; fi
+          if [[ "$RUNNER_OS" == "Windows" ]]; then choco install ninja; fi
+          if [[ "$RUNNER_OS" == "macOS" ]]; then brew install ninja; fi
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: 6.6.2
+          modules: qt3d
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Package
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            tar -czf MyQt3DApp-linux.tar.gz build/
+          fi
+
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            powershell Compress-Archive build MyQt3DApp-win.zip
+          fi
+
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            ditto -c -k --sequesterRsrc --keepParent build MyQt3DApp-mac.zip
+          fi
+
+      - name: Create Tag
+        run: |
+          VERSION=${VERSION_MAJOR}.${VERSION_MINOR}.${{ github.run_number }}
+          git tag v$VERSION
+          git push origin v$VERSION
+

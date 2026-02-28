@@ -17,7 +17,7 @@ cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
 
 cmake --build build-debug
 
-./build-debug/bin/circuit-cell
+./build-debug/circuit-cell
 ```
 
 ```bash
@@ -25,7 +25,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
 cmake --build build
 
-./build/bin/circuit-cell
+./build/circuit-cell
 ```
 
 # Version Data
@@ -38,5 +38,6 @@ Stored in 2 places:
 For now I'll handle the fact that we must manually keep these in sync. Not ideal, but the engineering to make a single source of truth is too much work and complexity risk.
 
 
+# License
 
-
+The code in this repository is under the GPLv2 license, see [`LICENSE.txt`](LICENSE.txt) for details. The auto-upgrade clause has been removed because your legal rights shouldn't have that sort of volatility.
