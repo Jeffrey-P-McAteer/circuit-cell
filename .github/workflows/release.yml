@@ -5,6 +5,14 @@ on:
     branches:
       - release
 
+permissions:
+  contents: write
+
+env:
+  VERSION_MAJOR: 0
+  VERSION_MINOR: 1
+  QT_VERSION: 6.6.2
+
 jobs:
   build:
     strategy:
@@ -13,48 +21,78 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    env:
-      VERSION_MAJOR: 0
-      VERSION_MINOR: 1
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      ########################################
+      # Install Ninja
+      ########################################
       - name: Install Ninja
         run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then sudo apt install ninja-build -y; fi
-          if [[ "$RUNNER_OS" == "Windows" ]]; then choco install ninja; fi
-          if [[ "$RUNNER_OS" == "macOS" ]]; then brew install ninja; fi
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt update
+            sudo apt install ninja-build -y
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            choco install ninja
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            brew install ninja
+          fi
+        shell: bash
 
+      ########################################
+      # Install Qt
+      ########################################
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
-          version: 6.6.2
+          version: ${{ env.QT_VERSION }}
           modules: qt3d
 
+      ########################################
+      # Configure
+      ########################################
       - name: Configure
-        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DPROJECT_VERSION_MAJOR=${{ env.VERSION_MAJOR }} \
+            -DPROJECT_VERSION_MINOR=${{ env.VERSION_MINOR }} \
+            -DPROJECT_VERSION_PATCH=${{ github.run_number }}
 
+      ########################################
+      # Build
+      ########################################
       - name: Build
-        run: cmake --build build
+        run: cmake --build build --config Release
 
-      - name: Package
+      ########################################
+      # Platform Packaging
+      ########################################
+      - name: Package Linux
+        if: runner.os == 'Linux'
         run: |
-          if [[ "$RUNNER_OS" == "Linux" ]]; then
-            tar -czf MyQt3DApp-linux.tar.gz build/
-          fi
+          tar -czf MyQt3DApp-linux.tar.gz -C build .
 
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            powershell Compress-Archive build MyQt3DApp-win.zip
-          fi
-
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            ditto -c -k --sequesterRsrc --keepParent build MyQt3DApp-mac.zip
-          fi
-
-      - name: Create Tag
+      - name: Package Windows
+        if: runner.os == 'Windows'
         run: |
-          VERSION=${VERSION_MAJOR}.${VERSION_MINOR}.${{ github.run_number }}
-          git tag v$VERSION
-          git push origin v$VERSION
+          powershell Compress-Archive build\* MyQt3DApp-win64.zip
 
+      - name: Package macOS
+        if: runner.os == 'macOS'
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent build MyQt3DApp.app MyQt3DApp-mac.zip
+
+      ########################################
+      # Upload Build Artifacts (temporary)
+      ########################################
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ runner.os }}-artifact
+          path: |
+            *.zip
+            *.tar.gz
