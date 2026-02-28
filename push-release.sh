@@ -37,3 +37,5 @@ echo "Merging master into release..."
 git merge --no-ff master -m "Merge master into release"
 
 git push origin release
+
+git checkout master
