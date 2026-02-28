@@ -8,13 +8,15 @@ on:
   push:
     branches:
       - release
+    tags:
+      - 'v*.*.*'   # matches semantic version tags like v2025.03.1234
 
 permissions:
   contents: write
 
 env:
-  VERSION_MAJOR: 0
-  VERSION_MINOR: 1
+  VERSION_MAJOR: 2026
+  VERSION_MINOR: 2
   QT_VERSION: 6.6.2
 
 jobs:
