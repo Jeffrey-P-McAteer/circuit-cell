@@ -7,7 +7,7 @@ C++ code for a thrilling spy adventure videogame!
 # Dev Dependencies
 
 ```bash
-sudo pacman -S cmake gcc qt6-3d
+sudo pacman -S cmake gcc qt6-3d qtcreator
 ```
 
 # Building
