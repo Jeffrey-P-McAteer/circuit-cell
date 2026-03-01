@@ -1,11 +1,11 @@
-#include <iostream>
-
-#include <QApplication>
-
 #include "MainWindow.hpp"
 
 // cmake-generated
 #include "version.h"
+
+#include <iostream>
+
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {

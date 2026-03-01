@@ -1,4 +1,8 @@
+
 #include "MainWindow.hpp"
+
+#include <iostream>
+
 #include <QQmlContext>
 #include <QVBoxLayout>
 
@@ -7,7 +11,7 @@ MainWindow::MainWindow(QWidget* parent)
 {
     // Central widget (could be your existing OpenGL or QWidget canvas)
     QWidget* central = new QWidget(this);
-    setCentralWidget(central);
+    this->setCentralWidget(central);
 
     QVBoxLayout* layout = new QVBoxLayout(central);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -30,3 +34,8 @@ MainWindow::MainWindow(QWidget* parent)
 }
 
 MainWindow::~MainWindow() {}
+
+void MainWindow::someCppSlot() {
+    std::cout << "someCppSlot() is running!" << std::endl;
+
+}
