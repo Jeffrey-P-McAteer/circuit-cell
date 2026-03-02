@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
     overlayWidget = new QQuickWidget();
     overlayWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     overlayWidget->rootContext()->setContextProperty("mainWindow", this); // expose C++ object
-    overlayWidget->setSource(QUrl("qrc:/qml/OverlayUI.qml"));
+    overlayWidget->setSource(QUrl("qrc:/OverlayUI.qml"));
 
     // Overlay layout
     auto *layout = new QVBoxLayout(container);
