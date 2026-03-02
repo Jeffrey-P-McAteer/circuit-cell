@@ -1,32 +1,25 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick 6.6
+import QtQuick.Controls 6.6
 
-Item {
-    anchors.fill: parent
+Rectangle {
+    width: 800
+    height: 600
+    color: "transparent"
 
-    Rectangle {
-        id: panel
-        width: 200
-        height: 100
-        color: "#80000000"   // semi-transparent background
+    Button {
+        text: "Click Me"
         anchors.top: parent.top
         anchors.right: parent.right
-        radius: 8
+        anchors.margins: 20
+        onClicked: mainWindow.someCppSlot()
+    }
 
-        Column {
-            anchors.centerIn: parent
-            spacing: 10
-
-            Button {
-                text: "Click Me"
-                onClicked: mainWindow.someCppSlot()  // calls C++ function
-            }
-
-            Label {
-                text: "Overlay Label"
-            }
-        }
+    Text {
+        text: "Overlay on top of 3D!"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 60
+        font.pixelSize: 24
+        color: "black"
     }
 }
-
-
