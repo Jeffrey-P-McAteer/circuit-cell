@@ -126,6 +126,17 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {}
 
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+
+    if (container)
+        container->setGeometry(rect());
+
+    if (overlayWidget)
+        overlayWidget->setGeometry(rect());
+}
+
 void MainWindow::someCppSlot() {
     //std::cout << "someCppSlot() is running!" << std::endl;
     qDebug() << "Button clicked from QML!";

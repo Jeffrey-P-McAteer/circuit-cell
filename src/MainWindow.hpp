@@ -14,6 +14,7 @@ public:
 
 public slots: // slots is a magic QML thing
     void someCppSlot();
+    void resizeEvent(QResizeEvent *event);
 
 private:
     Qt3DExtras::Qt3DWindow *view3D;
