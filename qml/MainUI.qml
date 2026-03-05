@@ -20,7 +20,7 @@ Item {
         camera: mainCamera
 
         environment: SceneEnvironment {
-            clearColor: "#202020"
+            clearColor: "#202060"
             backgroundMode: SceneEnvironment.Color
         }
 
@@ -42,9 +42,9 @@ Item {
             */
 
             DirectionalLight {
+                brightness: 5
                 eulerRotation.x: -45
-                eulerRotation.y: 30
-                brightness: 1.2
+                eulerRotation.y: 45
             }
 
             /*
@@ -67,7 +67,7 @@ Item {
             Model {
                 source: "#Rectangle"
                 scale: Qt.vector3d(20,1,20)
-                y: -2
+                y: -1
 
                 materials: DefaultMaterial {
                     diffuseColor: "#606060"
@@ -127,10 +127,6 @@ Item {
                 }
             }
         }
-
-        /*
-            Example status text
-        */
 
         Text {
             text: "Health: 100"
