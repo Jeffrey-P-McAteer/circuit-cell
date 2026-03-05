@@ -48,6 +48,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Widgets
     Quick
     QuickControls2
+    Quick3D
 )
 
 target_link_libraries(circuit-cell PRIVATE
@@ -67,6 +68,7 @@ target_link_libraries(circuit-cell PRIVATE
     Qt6::3DExtras
     Qt6::3DInput
     Qt6::3DLogic
+    Qt6::Quick3D
 )
 
 install(TARGETS circuit-cell

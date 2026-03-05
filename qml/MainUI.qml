@@ -6,6 +6,16 @@ Item {
 
     width: 1280
     height: 720
+    focus: true
+
+    // Movement speed
+    property real moveSpeed: 0.2
+
+    // Camera rotation properties
+    property real cameraYaw: 0
+    property real cameraPitch: -20
+    property real cameraDistance: 12
+    property real cameraHeight: 5
 
     /*
         ==========================
@@ -33,8 +43,13 @@ Item {
 
             PerspectiveCamera {
                 id: mainCamera
-                position: Qt.vector3d(0, 5, 12)
-                eulerRotation.x: -20
+                position: Qt.vector3d(
+                    playerCube.x + cameraDistance * Math.cos(cameraYaw * Math.PI / 180) * Math.cos(cameraPitch * Math.PI / 180),
+                    playerCube.y + cameraHeight + cameraDistance * Math.sin(cameraPitch * Math.PI / 180),
+                    playerCube.z + cameraDistance * Math.sin(cameraYaw * Math.PI / 180) * Math.cos(cameraPitch * Math.PI / 180)
+                )
+                eulerRotation.x: cameraPitch
+                eulerRotation.y: cameraYaw
             }
 
             /*
@@ -48,12 +63,14 @@ Item {
             }
 
             /*
-                SIMPLE TEST MODEL
+                PLAYER CUBE (controllable)
             */
 
             Model {
+                id: playerCube
                 source: "#Cube"
                 scale: Qt.vector3d(2,2,2)
+                y: 1
 
                 materials: DefaultMaterial {
                     diffuseColor: "lightblue"
@@ -74,6 +91,86 @@ Item {
                 }
             }
         }
+
+        // Mouse area for camera rotation
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+
+            property real lastX: 0
+            property real lastY: 0
+            property bool isDragging: false
+
+            onPressed: function(mouse) {
+                lastX = mouse.x
+                lastY = mouse.y
+                isDragging = true
+                worldView.forceActiveFocus()
+            }
+
+            onReleased: {
+                isDragging = false
+            }
+
+            onPositionChanged: function(mouse) {
+                if (isDragging) {
+                    var deltaX = mouse.x - lastX
+                    var deltaY = mouse.y - lastY
+
+                    cameraYaw += deltaX * 0.3
+                    cameraPitch -= deltaY * 0.3
+
+                    // Clamp pitch to avoid gimbal lock
+                    cameraPitch = Math.max(-89, Math.min(89, cameraPitch))
+
+                    lastX = mouse.x
+                    lastY = mouse.y
+                }
+            }
+
+            onWheel: function(wheel) {
+                cameraDistance -= wheel.angleDelta.y * 0.01
+                cameraDistance = Math.max(5, Math.min(30, cameraDistance))
+            }
+        }
+    }
+
+    // Keyboard controls
+    Keys.onPressed: function(event) {
+        var moveX = 0
+        var moveZ = 0
+
+        // Calculate forward/right vectors based on camera yaw
+        var forwardX = Math.cos(cameraYaw * Math.PI / 180)
+        var forwardZ = Math.sin(cameraYaw * Math.PI / 180)
+        var rightX = Math.cos((cameraYaw + 90) * Math.PI / 180)
+        var rightZ = Math.sin((cameraYaw + 90) * Math.PI / 180)
+
+        if (event.key === Qt.Key_W) {
+            moveX += forwardX * moveSpeed
+            moveZ += forwardZ * moveSpeed
+        }
+        if (event.key === Qt.Key_S) {
+            moveX -= forwardX * moveSpeed
+            moveZ -= forwardZ * moveSpeed
+        }
+        if (event.key === Qt.Key_A) {
+            moveX -= rightX * moveSpeed
+            moveZ -= rightZ * moveSpeed
+        }
+        if (event.key === Qt.Key_D) {
+            moveX += rightX * moveSpeed
+            moveZ += rightZ * moveSpeed
+        }
+
+        playerCube.x += moveX
+        playerCube.z += moveZ
+
+        event.accepted = true
+    }
+
+    Component.onCompleted: {
+        forceActiveFocus()
     }
 
     /*
