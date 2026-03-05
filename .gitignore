@@ -5,4 +5,5 @@ build-debug
 obj
 target
 __pycache__
+graphics-build
 

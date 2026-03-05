@@ -91,8 +91,8 @@ MainWindow::MainWindow(QWidget *parent)
     camController->setCamera(camera);
 
     // ----- Embed 3D into QWidget -----
-    container = QWidget::createWindowContainer(view3D);
-    setCentralWidget(container);
+    //container = QWidget::createWindowContainer(view3D);
+    //setCentralWidget(container);
 
     // ----- Embed 3D -----
     container = QWidget::createWindowContainer(view3D);
