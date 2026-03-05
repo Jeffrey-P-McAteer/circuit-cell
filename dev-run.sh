@@ -14,5 +14,11 @@ fi
 
 cmake --build build-debug
 
-./build-debug/circuit-cell
+# ./build-debug/circuit-cell
+
+gdb -batch \
+  -ex "run" \
+  -ex "bt" \
+  -ex "info locals" \
+  --args ./build-debug/circuit-cell
 

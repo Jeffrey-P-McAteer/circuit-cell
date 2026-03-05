@@ -1,6 +1,6 @@
 <RCC>
-    <qresource prefix="/"> <!-- The prefix="/" means in C++ you load it as qrc:/OverlayUI.qml. -->
-        <file>OverlayUI.qml</file>
+    <qresource prefix="/"> <!-- The prefix="/" means in C++ you load it as qrc:/MainUI.qml. -->
+        <file>MainUI.qml</file>
     </qresource>
 </RCC>
 
