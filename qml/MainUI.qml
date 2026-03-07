@@ -75,10 +75,10 @@ Item {
             Model {
                 id: playerCube
                 source: "#Cube"
-                scale: Qt.vector3d(2, 2, 2)
+                scale: Qt.vector3d(1, 1, 1)
                 y: 1
                 materials: DefaultMaterial {
-                    diffuseColor: "lightblue"
+                    diffuseColor: "red"
                 }
             }
 
