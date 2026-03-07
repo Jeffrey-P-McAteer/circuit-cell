@@ -17,6 +17,7 @@ cmake --build build-debug
 # ./build-debug/circuit-cell
 
 gdb -batch \
+  -ex "set print thread-events off" \
   -ex "run" \
   -ex "bt" \
   -ex "info locals" \

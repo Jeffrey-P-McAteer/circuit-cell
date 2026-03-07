@@ -191,6 +191,15 @@ Item {
         color: "white"
     }
 
+    Image {
+        width: 96
+        height: 96
+        source: "qrc:/icons/icon-96.png"
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 40
+    }
+
     // Control buttons
     Column {
         spacing: 10
