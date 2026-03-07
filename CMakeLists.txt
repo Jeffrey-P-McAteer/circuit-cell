@@ -23,9 +23,6 @@ find_package(Qt6 REQUIRED COMPONENTS
     Core
     Gui
     Widgets
-    3DCore
-    3DRender
-    3DExtras
 )
 
 qt_standard_project_setup()
@@ -44,10 +41,10 @@ set_target_properties(circuit-cell PROPERTIES MACOSX_BUNDLE TRUE)
 
 # Ensure we link to Qt6::Quick for QML processing
 find_package(Qt6 REQUIRED COMPONENTS
-    QuickWidgets
-    Widgets
     Quick
-    QuickControls2
+    QuickWidgets
+    Qml
+    QmlIntegration
     Quick3D
 )
 
@@ -56,18 +53,9 @@ target_link_libraries(circuit-cell PRIVATE
     Qt6::Gui
     Qt6::Widgets
     Qt6::Quick
-    Qt6::QuickControls2
     Qt6::Qml
     Qt6::QmlIntegration
     Qt6::QuickWidgets
-    Qt6::OpenGL
-    Qt6::Network
-    Qt6::Concurrent
-    Qt6::3DCore
-    Qt6::3DRender
-    Qt6::3DExtras
-    Qt6::3DInput
-    Qt6::3DLogic
     Qt6::Quick3D
 )
 
