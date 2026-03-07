@@ -9,7 +9,8 @@
 
 int main(int argc, char *argv[])
 {
-    std::cout << APP_VERSION_STRING << std::endl;
+    std::cout << "APP_VERSION_STRING = " << APP_VERSION_STRING << std::endl;
+    std::cout << "QGuiApplication::platformName() = " << QGuiApplication::platformName().toStdString() << std::endl;
 
     QApplication app(argc, argv);
 
