@@ -7,7 +7,11 @@ C++ code for a thrilling spy adventure videogame!
 # Dev Dependencies
 
 ```bash
-sudo pacman -S cmake gcc qt6-3d qtcreator
+sudo pacman -S cmake gcc qt6-3d qtcreator librsvg icoutils
+
+# librsvg contains the program rsvg-convert, used to render icons from .svg files
+# icoutils contains the program icotool, used to combine .png images into .ico files for Windorks.
+
 ```
 
 # Building

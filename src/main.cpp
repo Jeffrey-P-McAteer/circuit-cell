@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include <QApplication>
+#include <QIcon>
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,8 @@ int main(int argc, char *argv[])
 
     // This is what sway should use to make the window float, if the user wants that (app_id=circuit-cell)
     QGuiApplication::setDesktopFileName("circuit-cell");
+
+    app.setWindowIcon(QIcon("qrc:/icons/icon-128.png"));
 
     MainWindow window;
     window.resize(1024, 768);
