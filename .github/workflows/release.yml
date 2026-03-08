@@ -132,8 +132,8 @@ jobs:
           windeployqt `
             --release `
             --qmldir . `
-            build\circuit-cell.exe ; `
-          powershell Compress-Archive build\* circuit-cell-win64.zip
+            build\Release\circuit-cell.exe ; `
+          powershell Compress-Archive build\Release\* circuit-cell-win64.zip
 
       - name: Package macOS
         if: runner.os == 'macOS'
