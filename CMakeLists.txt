@@ -78,12 +78,13 @@ add_custom_target(generate_icons
         ${ICON_96}
         ${ICON_128}
         ${ICON_256}
+        ${ICON_ICO}
 )
 
 add_custom_command(
     OUTPUT ${ICON_ICO}
     COMMAND icotool -c ${ICON_16} ${ICON_32} ${ICON_48} ${ICON_96} ${ICON_128} ${ICON_256} -o ${ICON_ICO}
-    DEPENDS generate_icons
+    DEPENDS ${ICON_16} ${ICON_32} ${ICON_48} ${ICON_96} ${ICON_128} ${ICON_256}
 )
 
 set(APP_ICON_RESOURCE ${CMAKE_BINARY_DIR}/circuit-cell.rc)
