@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 # This line manipulated by set-versions.sh, coordinate changes there.
-project(circuit-cell VERSION 2026.3.1921 LANGUAGES CXX)
+project(circuit-cell VERSION 2026.3.1922 LANGUAGES CXX)
 
 # if(DEFINED ENV{CI_PIPELINE_IID})
 #     set(PROJECT_VERSION_PATCH 1745)
