@@ -111,6 +111,17 @@ jobs:
             -DPROJECT_VERSION_MINOR=${{ env.VERSION_MINOR }} \
             -DPROJECT_VERSION_PATCH=${{ env.VERSION_PATCH }}
 
+      - name: Locate latest Visual Studio
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          # vswhere is installed by default on hosted runners
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" `
+              -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 `
+              -property installationPath
+          if (-not $vs) { throw "Visual Studio with VC tools not found" }
+          echo "VS_PATH=$vs" >> $env:GITHUB_ENV
+
       ########################################
       # Build
       ########################################
@@ -122,6 +133,7 @@ jobs:
       ########################################
       - name: Package Linux
         if: runner.os == 'Linux'
+        shell: bash
         run: |
           ls -l build ; \
           linuxdeployqt build/circuit-cell -appimage ; \
@@ -129,7 +141,10 @@ jobs:
 
       - name: Package Windows
         if: runner.os == 'Windows'
+        shell: cmd
         run: |
+          call "%VS_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x64 ; `
+          echo VCINSTALLDIR=%VCINSTALLDIR% ; `
           windeployqt `
             --release --compiler-runtime `
             --qmldir . `
