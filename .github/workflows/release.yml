@@ -129,6 +129,10 @@ jobs:
       - name: Package Windows
         if: runner.os == 'Windows'
         run: |
+          windeployqt `
+            --release `
+            --qmldir . `
+            build\circuit-cell.exe ; `
           powershell Compress-Archive build\* circuit-cell-win64.zip
 
       - name: Package macOS
