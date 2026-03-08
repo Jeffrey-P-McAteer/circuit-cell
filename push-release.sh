@@ -18,6 +18,17 @@ if ! git diff-index --quiet --cached HEAD --; then
     exit 1
 fi
 
+
+# -----------------------------
+# Ensure script is run from master branch
+# -----------------------------
+CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+if [ "$CURRENT_BRANCH" != "master" ]; then
+    echo "ERROR: You must run this script from the 'master' branch. Current branch: $CURRENT_BRANCH"
+    exit 1
+fi
+
 # -----------------------------
 # Fetch latest updates
 # -----------------------------
