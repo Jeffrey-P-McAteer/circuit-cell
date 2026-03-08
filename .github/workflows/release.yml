@@ -51,10 +51,10 @@ jobs:
       # Install Qt
       ########################################
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
-          modules: qt3d
+          modules: qt3d qtquick3d qtshadertools
 
       ########################################
       # Configure
@@ -104,7 +104,11 @@ jobs:
       - name: Package Windows
         if: runner.os == 'Windows'
         run: |
-          powershell Compress-Archive build\* circuit-cell-win64.zip
+          windeployqt `
+            --release --compiler-runtime `
+            --qmldir . `
+            build\Release\circuit-cell.exe ; `
+          powershell Compress-Archive build\Release\* circuit-cell-win64.zip
 
       - name: Package macOS
         if: runner.os == 'macOS'
