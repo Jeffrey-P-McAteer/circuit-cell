@@ -1,6 +1,7 @@
 #include "MainWindow.hpp"
 #include <QQuickWidget>
 #include <QQmlContext>
+#include <QCoreApplication>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
