@@ -72,6 +72,7 @@ set(ICON_ICO ${CMAKE_BINARY_DIR}/icon.ico)
 
 add_custom_target(generate_icons
     DEPENDS
+        ${ICON_ICO}
         ${ICON_16}
         ${ICON_32}
         ${ICON_48}
