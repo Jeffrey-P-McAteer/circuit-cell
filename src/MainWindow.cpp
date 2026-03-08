@@ -2,6 +2,7 @@
 #include <QQuickWidget>
 #include <QQmlContext>
 #include <QDebug>
+#include <QCoreApplication>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,5 +33,5 @@ void MainWindow::spawnEnemy()
 
 void MainWindow::quitGame()
 {
-    qApp->quit();
+    QCoreApplication::quit();
 }
