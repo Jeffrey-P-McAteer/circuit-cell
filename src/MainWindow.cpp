@@ -33,5 +33,5 @@ void MainWindow::spawnEnemy()
 
 void MainWindow::quitGame()
 {
-    qApp->quit();
+    QCoreApplication::quit();
 }
