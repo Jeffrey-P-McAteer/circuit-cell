@@ -156,6 +156,7 @@ jobs:
           call "%VS_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x64
           echo VCINSTALLDIR=%VCINSTALLDIR%
           windeployqt --release --compiler-runtime --qmldir . build\Release\circuit-cell.exe
+          .\build\Release\vc_redist.x64.exe /extract:.\build\Release /quiet
           powershell Compress-Archive build\Release\* circuit-cell-win64.zip
 
       - name: Package macOS
