@@ -8,6 +8,12 @@
 #include <QApplication>
 #include <QIcon>
 
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QCursor>
+
+
 int main(int argc, char *argv[])
 {
     std::cout << "APP_VERSION_STRING = " << APP_VERSION_STRING << std::endl;
@@ -23,11 +29,14 @@ int main(int argc, char *argv[])
 
     app.setWindowIcon(QIcon("qrc:/icons/icon-128.png"));
 
-    MainWindow window;
+    /*MainWindow window;
     window.resize(1024, 768);
     window.setWindowState(Qt::WindowFullScreen);
     window.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    window.show();
+    window.show();*/
+
+    QQmlApplicationEngine engine;
+    engine.load(QUrl(QStringLiteral("qrc:/MainUI.qml")));
 
     return app.exec();
 }
