@@ -9,7 +9,12 @@ if [[ "$1" == "clean" ]] || [[ "$2" == "clean" ]] || [[ "$2" == "clean" ]] ; the
 fi
 
 if ! [[ -e build-debug ]] ; then
-  cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
+  if which ninja 2>/dev/null >/dev/null ; then
+    # Ninja is a 10x faster build tool
+    cmake -S . -B build-debug -G Ninja -DCMAKE_BUILD_TYPE=Debug
+  else
+    cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
+  fi
 fi
 
 cmake --build build-debug
