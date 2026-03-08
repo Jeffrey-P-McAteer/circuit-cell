@@ -124,6 +124,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           ls -l build ; \
+          linuxdeployqt build/circuit-cell -appimage ; \
           tar -czf circuit-cell-linux.tar.gz -C build .
 
       - name: Package Windows
