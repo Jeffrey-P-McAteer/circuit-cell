@@ -100,7 +100,7 @@ Name=Circuit Cell
 Exec=circuit-cell
 Icon=circuit-cell
 Type=Application
-Categories=Game;Puzzle;
+Categories=Game;
 Comment=A Qt6 game
 Terminal=false")
 
