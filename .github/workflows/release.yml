@@ -51,10 +51,10 @@ jobs:
       # Install Qt
       ########################################
       - name: Install Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
-          modules: "qtbase qtdeclarative qttools qt3d qtquick3d qtquick3dphysics qtquickcontrols qtquickcontrols2 qtgraphicaleffects"
+          modules: "qtbase qtdeclarative qttools qt3d qtquick3d qtquick3dphysics qtquickcontrols qtquickcontrols2 qtgraphicaleffects qtmultimedia qtgamepad"
 
       ########################################
       # Configure
