@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+trap 'echo "Error occurred. Returning to master branch."; git checkout master' ERR
+
 ./set-versions.sh
 
 git status
