@@ -39,11 +39,26 @@ jobs:
         run: |
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt update
-            sudo apt install ninja-build -y
+            sudo apt install -y ninja-build
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            choco install ninja
+            choco install -y ninja
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install ninja
+          fi
+        shell: bash
+
+      ########################################
+      # Install CLI Tools (see readme.md)
+      ########################################
+      - name: Install Ninja
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt update
+            sudo apt install -y librsvg2-bin icoutils
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            choco install -y rsvg-convert icoutils
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            brew install librsvg icoutils
           fi
         shell: bash
 
