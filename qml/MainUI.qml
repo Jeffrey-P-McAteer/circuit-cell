@@ -88,7 +88,7 @@ Item {
 
             Model {
                 source: "#Rectangle"
-                scale: Qt.vector3d(20, 1, 20)
+                scale: Qt.vector3d(10, 1, 10)
                 y: -1
                 materials: DefaultMaterial {
                     diffuseColor: "#606060"
