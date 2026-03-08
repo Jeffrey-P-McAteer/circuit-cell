@@ -50,20 +50,12 @@ else
     git pull origin release || true
 fi
 
-# -----------------------------
-# Rebase release onto master
-# -----------------------------
-#echo "Rebasing release onto master..."
-#git rebase master
+git checkout master
 
 echo "Directly assigning release to master's commit..."
 git branch -f release master
 
-# Optional: automatically abort if conflicts
-if [ $? -ne 0 ]; then
-    echo "Rebase failed due to conflicts. Resolve manually."
-    exit 1
-fi
+git checkout release
 
 source build/version_data.sh
 
