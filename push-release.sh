@@ -40,8 +40,11 @@ fi
 # -----------------------------
 # Rebase release onto master
 # -----------------------------
-echo "Rebasing release onto master..."
-git rebase master
+#echo "Rebasing release onto master..."
+#git rebase master
+
+echo "Directly assigning release to master's commit..."
+git branch -f release master
 
 # Optional: automatically abort if conflicts
 if [ $? -ne 0 ]; then
