@@ -39,12 +39,12 @@ find_package(Qt6 REQUIRED COMPONENTS
 
 ######### BEGIN TOOLS #########
 
-add_executable(svg2png support_tools/svg2png.cpp)
+#add_executable(svg2png support_tools/svg2png.cpp)
 
-target_link_libraries(svg2png
-    Qt6::Gui
-    Qt6::Svg
-)
+#target_link_libraries(svg2png
+#    Qt6::Gui
+#    Qt6::Svg
+#)
 
 ######### BEGIN RESOURCES #########
 
@@ -87,11 +87,23 @@ add_custom_command(
     DEPENDS ${ICON_16} ${ICON_32} ${ICON_48} ${ICON_96} ${ICON_128} ${ICON_256}
 )
 
-set(APP_ICON_RESOURCE ${CMAKE_BINARY_DIR}/circuit-cell.rc)
-
 # Windows resource file generation
+set(APP_ICON_RESOURCE ${CMAKE_BINARY_DIR}/circuit-cell.rc)
 file(WRITE ${APP_ICON_RESOURCE}
 "IDI_ICON1 ICON \"${ICON_ICO}\"")
+
+# Linux circuit-cell.desktop resource file generation
+set(APP_DESKTOP_FILE ${CMAKE_BINARY_DIR}/circuit-cell.desktop)
+file(WRITE ${APP_DESKTOP_FILE}
+"[Desktop Entry]
+Name=Circuit Cell
+Exec=circuit-cell
+Icon=circuit-cell
+Type=Application
+Categories=Game;Puzzle;
+Comment=A Qt6 game
+Terminal=false")
+
 
 ######### BEGIN GAME #########
 
@@ -122,7 +134,6 @@ qt_add_resources(circuit-cell generated_resources
         ${ICON_256}
 )
 add_dependencies(circuit-cell generate_icons)
-
 
 # Enable the .app build on MacOS targets.
 set_target_properties(circuit-cell PROPERTIES MACOSX_BUNDLE TRUE)

@@ -145,7 +145,7 @@ jobs:
         shell: bash
         run: |
           ls -l build ; \
-          linuxdeployqt build/circuit-cell -appimage ; \
+          linuxdeployqt build/circuit-cell -appimage -desktop-file=build/circuit-cell.desktop ; \
           tar -czf circuit-cell-linux.tar.gz -C build .
 
       - name: Package Windows
