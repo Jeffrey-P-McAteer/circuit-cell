@@ -56,13 +56,12 @@ jobs:
             sudo apt update
             sudo apt install -y librsvg2-bin icoutils
 
-            wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
-            chmod +x linuxdeployqt-continuous-x86_64.AppImage
-            ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract
-            mv squashfs-root deployqt
-            sudo ln -s $PWD/deployqt/AppRun /usr/local/sbin/linuxdeployqt
-            sudo ln -s $PWD/deployqt/AppRun /usr/bin/linuxdeployqt
-            sudo rm -f linuxdeployqt-continuous-x86_64.AppImage
+            git clone --recursive https://github.com/probonopd/linuxdeployqt.git
+            cd linuxdeployqt
+            qmake
+            make -j$(nproc)
+            find $PWD -iname 'linuxdeployqt' -type f -print -exec sudo ln -s {} /usr/local/sbin/linuxdeployqt \;
+            find $PWD -iname 'linuxdeployqt' -type f -print -exec sudo ln -s {} /usr/bin/linuxdeployqt \;
 
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
             choco install -y rsvg-convert
