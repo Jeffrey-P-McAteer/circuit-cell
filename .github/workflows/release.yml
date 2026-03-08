@@ -55,8 +55,18 @@ jobs:
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             sudo apt update
             sudo apt install -y librsvg2-bin icoutils
+
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            choco install -y rsvg-convert icoutils
+            choco install -y rsvg-convert
+            choco install msys2 -y
+
+            C:\tools\msys64\usr\bin\bash -lc "
+              pacman -Sy --noconfirm \
+                mingw-w64-x86_64-icoutils
+            "
+
+            echo "C:\tools\msys64\mingw64\bin" >> $GITHUB_PATH
+
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             brew install librsvg icoutils
           fi
