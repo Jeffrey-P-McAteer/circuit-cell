@@ -98,7 +98,7 @@ file(WRITE ${APP_DESKTOP_FILE}
 "[Desktop Entry]
 Name=Circuit Cell
 Exec=circuit-cell
-Icon=circuit-cell
+Icon=icon-256.png
 Type=Application
 Categories=Game;
 Comment=A Qt6 game
