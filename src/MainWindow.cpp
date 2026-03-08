@@ -15,6 +15,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     view->setSource(QUrl("qrc:/MainUI.qml"));
 
+    // Make the QML fill the widget, not just sit at its natural size
+    view->setResizeMode(QQuickWidget::SizeRootObjectToView);
+
+    view->setFocusPolicy(Qt::StrongFocus);
+    view->installEventFilter(this);  // optional, for custom key routing
+
+    view->setClearColor(QColor("#1a1a2e")); // tells the OpenGL surface what colour to clear to between frames
+    view->setAttribute(Qt::WA_OpaquePaintEvent); // attribute prevents Qt from drawing the default grey widget background behind it, which would cause a flash on resize
+
     setCentralWidget(view);
 }
 

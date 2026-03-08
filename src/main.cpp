@@ -12,12 +12,18 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QCursor>
-
+#include <QSurfaceFormat>
 
 int main(int argc, char *argv[])
 {
     std::cout << "APP_VERSION_STRING = " << APP_VERSION_STRING << std::endl;
     std::cout << "QGuiApplication::platformName() = " << QGuiApplication::platformName().toStdString() << std::endl;
+
+    QSurfaceFormat fmt;
+    fmt.setDepthBufferSize(24);
+    fmt.setSamples(4);            // matches multisample: true in QML
+    fmt.setStencilBufferSize(8);
+    QSurfaceFormat::setDefaultFormat(fmt);
 
     QApplication app(argc, argv);
 
@@ -29,14 +35,11 @@ int main(int argc, char *argv[])
 
     app.setWindowIcon(QIcon("qrc:/icons/icon-128.png"));
 
-    /*MainWindow window;
+    MainWindow window;
     window.resize(1024, 768);
     window.setWindowState(Qt::WindowFullScreen);
     window.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    window.show();*/
-
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/MainUI.qml")));
+    window.show();
 
     return app.exec();
 }

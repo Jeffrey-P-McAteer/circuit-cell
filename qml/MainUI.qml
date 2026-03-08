@@ -8,13 +8,13 @@ import Qt3D.Extras 2.15
 import QtQuick.Scene3D 2.15
 import QtQuick.Shapes 1.15
 
-Window {
+Item {
     id: gameWindow
     width: 1280
     height: 720
     visible: true
-    title: "Qt3D Explorer"
-    color: "#1a1a2e"
+    // title: "Qt3D Explorer"
+    // No longer exists on Item - color: "#1a1a2e"
 
     // ─── Game State ───────────────────────────────────────────────────────────
     property real playerX: 0
