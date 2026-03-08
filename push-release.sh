@@ -65,7 +65,8 @@ git tag -f -a "$TAG_NAME" -m "Release version $VERSION_STR"
 echo "Git tag $TAG_NAME created/updated at current commit."
 
 # Optional: push tag to origin
-git push --force-with-lease origin release
+#git push --force-with-lease origin release
+git push --force origin refs/heads/release:refs/heads/release
 git push -f origin "$TAG_NAME"
 
 # Go back to where we began
