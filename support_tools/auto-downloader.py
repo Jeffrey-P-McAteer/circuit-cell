@@ -10,9 +10,11 @@ import tempfile
 import time
 import urllib.request
 import zipfile
+import ssl
 
 APP_NAME = "github-app-updater"
 
+context = ssl._create_unverified_context()
 
 def log(msg):
     print(time.strftime("[%Y-%m-%d %H:%M:%S]"), msg, flush=True)
@@ -47,7 +49,7 @@ def http_get_json(url):
         }
     )
 
-    with urllib.request.urlopen(req) as r:
+    with urllib.request.urlopen(req, context=context) as r:
         return json.load(r)
 
 
@@ -57,7 +59,7 @@ def download_file(url, dest):
         headers={"User-Agent": APP_NAME}
     )
 
-    with urllib.request.urlopen(req) as r, open(dest, "wb") as f:
+    with urllib.request.urlopen(req, context=context) as r, open(dest, "wb") as f:
         shutil.copyfileobj(r, f)
 
 
