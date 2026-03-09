@@ -154,7 +154,7 @@ def main():
     parser.add_argument("asset_name", help="Release asset filename")
     parser.add_argument("app_dir", help="Directory to extract application into")
     parser.add_argument("--repo", help="GitHub repo in format owner/repo", default='Jeffrey-P-McAteer/circuit-cell')
-    parser.add_argument("--interval", type=int, default=300, help="Polling interval seconds")
+    parser.add_argument("--interval", type=int, default=60, help="Polling interval seconds")
 
     args = parser.parse_args()
 
