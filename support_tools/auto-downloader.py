@@ -15,6 +15,7 @@ import ssl
 APP_NAME = "github-app-updater"
 
 context = ssl._create_unverified_context()
+ssl._create_default_https_context = ssl._create_unverified_context
 
 def log(msg):
     print(time.strftime("[%Y-%m-%d %H:%M:%S]"), msg, flush=True)
