@@ -146,7 +146,7 @@ jobs:
         run: |
           ls -l build ; \
           export VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH" ; \
-          linuxdeployqt build/circuit-cell -qmldir=. -appimage -bundle-non-qt-libs -extra-plugins=wayland ; \
+          linuxdeployqt build/circuit-cell -qmldir=. -appimage -bundle-non-qt-libs ; \
           tar -czf circuit-cell-linux.tar.gz -C build .
 
       - name: Package Windows
