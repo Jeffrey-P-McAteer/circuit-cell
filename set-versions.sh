@@ -6,7 +6,9 @@ YEAR=$(date +%Y)
 MONTH=$(date +%-m)    # 1..12
 #DAY_OF_YEAR=$(date +%j)  # 001..366
 EPOCH_S=$(date +%s)
-PATCH=$(( ($EPOCH_S % (60*60*24*365) ) / (60*60) ))
+if [[ -z "$PATCH" ]] ; then
+    PATCH=$(( ($EPOCH_S % (60*60*24*365) ) / (60*60) ))
+fi
 
 VERSION_MAJOR=$YEAR
 VERSION_MINOR=$MONTH
