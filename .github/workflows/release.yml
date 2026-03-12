@@ -158,6 +158,7 @@ jobs:
           echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT ; \
           mkdir -p build/usr/plugins ; \
           cp -r $QT_ROOT/plugins/platforms build/usr/plugins/ ; \
+          cp -r $QT_ROOT/plugins/wayland-* build/usr/plugins/ ; \
           linuxdeployqt build/circuit-cell \
             -qmldir=. \
             -appimage \
