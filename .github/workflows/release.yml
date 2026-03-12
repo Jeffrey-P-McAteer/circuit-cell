@@ -88,7 +88,7 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
-          modules: qt3d qtquick3d qtshadertools
+          modules: qt3d qtquick3d qtshadertools qtwayland
 
       ########################################
       # Configure
@@ -146,7 +146,13 @@ jobs:
         run: |
           ls -l build ; \
           export VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH" ; \
-          linuxdeployqt build/circuit-cell -qmldir=. -appimage -bundle-non-qt-libs -exclude-libs=libqsqlmimer -unsupported-allow-new-glibc ; \
+          linuxdeployqt build/circuit-cell \
+            -qmldir=. \
+            -appimage \
+            -bundle-non-qt-libs \
+            -extra-plugins=platforms/libqwayland-egl.so,platforms/libqwayland-generic.so \
+            -exclude-libs=libqsqlmimer \
+            -unsupported-allow-new-glibc ; \
           tar -czf circuit-cell-linux.tar.gz -C build .
 
       - name: Package Windows
