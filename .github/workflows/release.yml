@@ -154,11 +154,14 @@ jobs:
         run: |
           ls -l build ; \
           export VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH" ; \
+          QT_ROOT=$(dirname $(dirname $(which qmake))) ; \
+          echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT ; \
+          mkdir -p build/usr/plugins ; \
+          cp -r $QT_ROOT/plugins/platforms build/usr/plugins/ ; \
           linuxdeployqt build/circuit-cell \
             -qmldir=. \
             -appimage \
             -bundle-non-qt-libs \
-            -extra-plugins=platforms/libqwayland-egl.so,platforms/libqwayland-generic.so \
             -exclude-libs=libqsqlmimer \
             -unsupported-allow-new-glibc ; \
           tar -czf circuit-cell-linux.tar.gz -C build .
