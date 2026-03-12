@@ -155,7 +155,7 @@ jobs:
           ls -l build ;
           export VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH" ;
           QT_ROOT=$(dirname $(dirname $(which qmake))) ;
-          echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT ;
+          echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT $QT_ROOT/plugins/ ;
           mkdir -p build/usr/plugins ;
           cp -r $QT_ROOT/plugins/platforms build/usr/plugins/ ;
           cp -r $QT_ROOT/plugins/wayland-* build/usr/plugins/ ;
