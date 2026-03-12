@@ -84,7 +84,15 @@ jobs:
       ########################################
       # Install Qt
       ########################################
-      - name: Install Qt
+      - name: Install Qt (Windows and MacOS)
+        if: runner.os != 'Linux'
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          modules: qt3d qtquick3d qtshadertools
+
+      - name: Install Qt (Linux)
+        if: runner.os == 'Linux'
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
