@@ -157,6 +157,8 @@ jobs:
           QT_ROOT=$(dirname $(dirname $(which qmake))) ;
           echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT $QT_ROOT/plugins/ ;
           mkdir -p build/usr/plugins ;
+          cp $QT_ROOT/plugins/platforms/libqwayland-egl.so build/usr/plugins/ ;
+          cp $QT_ROOT/plugins/platforms/libqwayland-generic.so build/usr/plugins/ ;
           cp -r $QT_ROOT/plugins/platforms build/usr/plugins/ ;
           cp -r $QT_ROOT/plugins/wayland-* build/usr/plugins/ ;
           linuxdeployqt build/circuit-cell \
