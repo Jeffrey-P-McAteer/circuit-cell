@@ -14,8 +14,17 @@
 #include <QCursor>
 #include <QSurfaceFormat>
 
+#ifdef Q_OS_LINUX
+#include <QQuickWindow>
+#include <QSGRendererInterface>
+#endif
+
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_LINUX
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+#endif
+
     std::cout << "APP_VERSION_STRING = " << APP_VERSION_STRING << std::endl;
     std::cout << "QGuiApplication::platformName() = " << QGuiApplication::platformName().toStdString() << std::endl;
 
