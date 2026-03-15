@@ -155,7 +155,12 @@ jobs:
           ls -l build ;
           export VERSION="$VERSION_MAJOR.$VERSION_MINOR.$VERSION_PATCH"
           QT_ROOT=$(dirname $(dirname $(which qmake)))
+
+          echo '==============================='
           echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT $QT_ROOT/plugins/ $QT_ROOT/plugins/platforms/ $QT_ROOT/plugins/renderplugins/
+          fing $QT_ROOT -iname 'libqwayland-egl.so' -print
+          echo '==============================='
+
           mkdir -p build/plugins
           mkdir -p build/plugins/renderplugins
 
