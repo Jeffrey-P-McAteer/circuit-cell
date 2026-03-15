@@ -157,21 +157,20 @@ jobs:
           QT_ROOT=$(dirname $(dirname $(which qmake)))
 
           echo '==============================='
-          echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT $QT_ROOT/plugins/ $QT_ROOT/plugins/platforms/ $QT_ROOT/plugins/renderplugins/
+          echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT $QT_ROOT/plugins/ $QT_ROOT/plugins/platforms/ $QT_ROOT/plugins/renderplugins/ || true
           fing $QT_ROOT -iname 'libqwayland-egl.so' -print
           echo '==============================='
 
           mkdir -p build/plugins
-          mkdir -p build/plugins/renderplugins
 
           cp $QT_ROOT/plugins/platforms/libqwayland-egl.so build/plugins/
           cp $QT_ROOT/plugins/platforms/libqwayland-generic.so build/plugins/
-          cp $QT_ROOT/plugins/renderplugins/libopenglrendererplugin.so build/plugins/renderplugins/
-          cp -r $QT_ROOT/plugins/platforms build/plugins/
+          cp $QT_ROOT/plugins/renderplugins build/plugins/renderplugins/
           cp -r $QT_ROOT/plugins/wayland-decoration-client \
             $QT_ROOT/plugins/wayland-graphics-integration-client \
             $QT_ROOT/plugins/wayland-graphics-integration-server \
             $QT_ROOT/plugins/wayland-shell-integration \
+            $QT_ROOT/plugins/renderplugins \
             build/plugins/
 
           linuxdeployqt build/circuit-cell \
@@ -183,12 +182,12 @@ jobs:
 
           cp $QT_ROOT/plugins/platforms/libqwayland-egl.so build/plugins/
           cp $QT_ROOT/plugins/platforms/libqwayland-generic.so build/plugins/
-          cp $QT_ROOT/plugins/renderplugins/libopenglrendererplugin.so build/plugins/renderplugins/
           cp -r $QT_ROOT/plugins/platforms build/plugins/
           cp -r $QT_ROOT/plugins/wayland-decoration-client \
             $QT_ROOT/plugins/wayland-graphics-integration-client \
             $QT_ROOT/plugins/wayland-graphics-integration-server \
             $QT_ROOT/plugins/wayland-shell-integration \
+            $QT_ROOT/plugins/renderplugins \
             build/plugins/
 
           tar -czf circuit-cell-linux.tar.gz -C build .
