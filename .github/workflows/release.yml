@@ -158,7 +158,7 @@ jobs:
 
           echo '==============================='
           echo "QT_ROOT=$QT_ROOT" ; ls -alh $QT_ROOT $QT_ROOT/plugins/ $QT_ROOT/plugins/platforms/ $QT_ROOT/plugins/renderplugins/ || true
-          fing $QT_ROOT -iname 'libqwayland-egl.so*' -or -iname '*libopenglrendererplugin.so*' -print
+          find $QT_ROOT -iname 'libqwayland-egl.so*' -or -iname '*libopenglrendererplugin.so*' -print || true
           echo '==============================='
 
           mkdir -p build/plugins
