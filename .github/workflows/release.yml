@@ -165,7 +165,7 @@ jobs:
 
           cp $QT_ROOT/plugins/platforms/libqwayland-egl.so build/plugins/
           cp $QT_ROOT/plugins/platforms/libqwayland-generic.so build/plugins/
-          cp $QT_ROOT/plugins/renderplugins build/plugins/renderplugins/
+          cp -r $QT_ROOT/plugins/platforms build/plugins/
           cp -r $QT_ROOT/plugins/wayland-decoration-client \
             $QT_ROOT/plugins/wayland-graphics-integration-client \
             $QT_ROOT/plugins/wayland-graphics-integration-server \
