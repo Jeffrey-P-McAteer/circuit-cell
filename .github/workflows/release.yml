@@ -96,7 +96,7 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
-          modules: qt3d qtquick3d qtshadertools qtwayland qtwaylandcompositor
+          modules: qt3d qtquick3d qtshadertools qtwaylandcompositor
 
       ########################################
       # Configure
