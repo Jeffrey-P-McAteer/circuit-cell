@@ -3,8 +3,6 @@ set -euo pipefail
 
 trap 'echo "Error occurred. Returning to master branch."; git checkout master' ERR
 
-./set-versions.sh
-
 git status
 
 # -----------------------------
@@ -20,7 +18,6 @@ if ! git diff-index --quiet --cached HEAD --; then
     exit 1
 fi
 
-
 # -----------------------------
 # Ensure script is run from master branch
 # -----------------------------
@@ -31,24 +28,38 @@ if [ "$CURRENT_BRANCH" != "master" ]; then
     exit 1
 fi
 
+
+./set-versions.sh
+
+git status
+
 # -----------------------------
-# Fetch latest updates
+# Check if repo is clean - if not, the ONLY place the change could have occured from is ./set-versions.sh - auto-commit
+# -----------------------------
+if ! git diff-index --quiet HEAD -- || !git diff-index --quiet --cached HEAD --; then
+    git add -A .
+    git commit -m "Version Bump"
+fi
+
+
+# -----------------------------
+# Fetch latest updates (unlikely to be necessary)
 # -----------------------------
 # git fetch origin
 
-if ! git show-ref --quiet refs/heads/master; then
-    git checkout -b master origin/master
-else
-    git checkout master
-    git pull origin master
-fi
+# if ! git show-ref --quiet refs/heads/master; then
+#     git checkout -b master origin/master
+# else
+#     git checkout master
+#     git pull origin master
+# fi
 
-if ! git show-ref --quiet refs/heads/release; then
-    git checkout -b release origin/release || git checkout -b release
-else
-    git checkout release
-    git pull origin release || true
-fi
+# if ! git show-ref --quiet refs/heads/release; then
+#     git checkout -b release origin/release || git checkout -b release
+# else
+#     git checkout release
+#     git pull origin release || true
+# fi
 
 git checkout master
 
