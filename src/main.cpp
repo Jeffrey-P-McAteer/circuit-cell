@@ -22,7 +22,9 @@
 int main(int argc, char *argv[])
 {
 #ifdef Q_OS_LINUX
-    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+    if (qEnvironmentVariableIsEmpty("QSG_RHI_BACKEND")) {
+       QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+    }
 #endif
 
     std::cout << "APP_VERSION_STRING = " << APP_VERSION_STRING << std::endl;
